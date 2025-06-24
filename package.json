@@ -1,7 +1,6 @@
 {
-  "name": "facebook-webhook-glitch",
+  "name": "fb-webhook",
   "version": "1.0.0",
-  "description": "Facebook Messenger Webhook for Make.com",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
