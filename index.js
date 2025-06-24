@@ -4,7 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const VERIFY_TOKEN = "my-secret-token"; // เปลี่ยนให้ตรงกับที่ใส่ใน Facebook
-const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/xxxxxx"; // ใส่ URL ของ Make
+const MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/5p6cv5j7n3dlcltdhuo5jrhrjsufh51r"; // ใส่ URL ของ Make
 
 app.use(express.json());
 
