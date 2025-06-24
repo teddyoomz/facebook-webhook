@@ -3,8 +3,8 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const VERIFY_TOKEN = "my-secret-token"; // ใส่ token ที่จะใช้ใน Facebook
-const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/xxxxxx"; // เปลี่ยนเป็น Webhook จาก Make
+const VERIFY_TOKEN = "my-secret-token"; // เปลี่ยนให้ตรงกับที่ใส่ใน Facebook
+const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/xxxxxx"; // ใส่ URL ของ Make
 
 app.use(express.json());
 
@@ -14,27 +14,24 @@ app.get('/webhook', (req, res) => {
   const challenge = req.query["hub.challenge"];
 
   if (mode === "subscribe" && token === VERIFY_TOKEN) {
-    console.log("✅ Verified Webhook");
+    console.log("✅ VERIFY SUCCESS");
     res.status(200).send(challenge);
   } else {
-    console.log("❌ Verification failed");
     res.sendStatus(403);
   }
 });
 
 app.post('/webhook', async (req, res) => {
-  console.log("📥 Message from Facebook:", JSON.stringify(req.body, null, 2));
-
+  console.log("📩 FB Message:", JSON.stringify(req.body, null, 2));
   try {
     await fetch(MAKE_WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body)
     });
-  } catch (error) {
-    console.error("❌ Failed to forward to Make:", error);
+  } catch (e) {
+    console.error("❌ Make error:", e);
   }
-
   res.sendStatus(200);
 });
 
